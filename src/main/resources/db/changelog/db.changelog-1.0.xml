@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<databaseChangeLog  
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">  
+    
+    <changeSet  author="putra"  id="1185214997195-1">  
+        <createTable tableName="play">  
+            <column  name="id"  type="int" autoIncrement="true">
+            	<constraints primaryKey="true" />
+            </column> 
+            <column  name="board_size"  type="int"/>  
+        </createTable>
+        
+        <createTable tableName="play_history">  
+            <column name="id"  type="int" autoIncrement="true">
+            	<constraints primaryKey="true"/>
+            </column>
+            <column name="play_id" type="int"/>  
+            <column name="player"  type="varchar(50)"/>
+            <column name="row_num" type="int"/>
+            <column name="column_num" type="int"/>
+            <column name="is_win" type="bit" defaultValue="0"/>
+            <column name="is_tie" type="bit" defaultValue="0"/>
+            <column name="exec_timestamp" type="datetime"/>
+        </createTable>  
+        
+        <addForeignKeyConstraint
+        	baseColumnNames="play_id"  
+            baseTableName="play_history"    
+            constraintName="fk_play_history__play_id"  
+            deferrable="false"  
+            initiallyDeferred="false"  
+            onDelete="NO ACTION"  
+            onUpdate="NO ACTION"  
+            referencedColumnNames="id"
+            referencedTableName="play"/>
+    </changeSet>
+    
+</databaseChangeLog>
